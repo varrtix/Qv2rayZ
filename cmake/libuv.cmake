@@ -31,7 +31,7 @@ if(NOT USE_SYSTEM_LIBUV)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libuv EXCLUDE_FROM_ALL)
     set_target_properties(uv PROPERTIES EXCLUDE_FROM_ALL TRUE)
     set_target_properties(uv_a PROPERTIES POSITION_INDEPENDENT_CODE 1)
-    add_library(uv::uv-static ALIAS uv_a)
+    # add_library(uv::uv-static ALIAS uv_a)
     set(LibUV_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libuv/include
         )
     add_library(uv::uv-static ALIAS uv_a)

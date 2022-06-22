@@ -1,5 +1,6 @@
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
 
+set(OPENSSL_ROOT_DIR "/usr/local/opt/openssl")
 find_package(gRPC CONFIG QUIET)
 
 # Debian, for example, cannot find gRPC in a proper way.
