@@ -80,6 +80,8 @@ if(WIN32)
         endif()
     endif()
     include(cmake/platforms/prefixes.cmake)
+elseif(APPLE)
+    add_compile_options("-Wnullability-completeness")
 endif()
 
 if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17.0")
