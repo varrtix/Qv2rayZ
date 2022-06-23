@@ -1,6 +1,10 @@
-import QtQuick 2.4
-import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.0
+//import QtQuick 2.4
+//import QtQuick.Controls 2.15
+//import QtGraphicalEffects 1.0
+
+import QtQuick
+import QtQuick.Controls
+import QtGraphicalEffects
 
 Item {}
 

@@ -1,8 +1,12 @@
-import QtQuick 2.13
-import QtQuick.Controls 2.13
+//import QtQuick 2.13
+//import QtQuick.Controls 2.13
+
+import QtQuick
+import QtQuick.Controls
 
 import "components"
-import QtQuick.Layouts 1.11
+//import QtQuick.Layouts 1.11
+import QtQuick.Layouts
 import "widgets"
 
 Item {

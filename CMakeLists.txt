@@ -130,7 +130,7 @@ QVLOG(QV2RAY_HAS_BUILTIN_PLUGINS)
 option(QV2RAY_EMBED_TRANSLATIONS "Embed Translations" OFF)
 option(QV2RAY_HAS_SINGLEAPPLICATION "Build With SingleApplication" ON)
 
-set(QV2RAY_UI_TYPE "QML" CACHE STRING "Qv2ray GUI Component")
+set(QV2RAY_UI_TYPE "QWidget" CACHE STRING "Qv2ray GUI Component")
 QVLOG(QV2RAY_UI_TYPE)
 
 option(QV2RAY_QT6 "Use Qt6" ON)
@@ -273,7 +273,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 if(QV2RAY_USE_QML)
-    find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui REQUIRED)
+    find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui QmlImportScanner REQUIRED)
     list(APPEND QV2RAY_QT_LIBS
         ${QV_QT_LIBNAME}::Quick
         ${QV_QT_LIBNAME}::Qml
@@ -402,9 +402,11 @@ QVLOG(QV2RAY_QM_FILES)
 QVLOG(QV2RAY_QRC_RESOURCES)
 
 if(QV2RAY_QT6)
-    qt6_add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+    qt6_add_executable(${PROJECT_NAME} ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
     # For Qt5, Android
     # add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
+
+    qt_disable_unicode_defines(${PROJECT_NAME})
 else()
     add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
 endif()
@@ -432,6 +434,16 @@ target_link_libraries(qv2ray PUBLIC
     ${QV2RAY_QRENCODE_LIBRARY}
     )
 
+if (QV2RAY_USE_QML)
+    if (QV2RAY_QT6)
+        set(QT_NO_CREATE_VERSIONLESS_FUNCTIONS OFF CACHE STRING "Hides commands that start with qt_, leaving only the versioned ones starting with qt6_.")
+        qt6_import_qml_plugins(${PROJECT_NAME}
+            INCLUDE ${QV_QT_LIBNAME}::QtQuickControls2Plugin
+            )
+    else()
+        qt5_import_qml_plugins(${PROJECT_NAME})
+    endif()
+endif()
 
 # ==================================================================================
 # Qv2ray Unit Tests

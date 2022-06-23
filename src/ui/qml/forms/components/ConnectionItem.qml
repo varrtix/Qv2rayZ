@@ -1,4 +1,8 @@
-import QtQuick 2.12
+//import QtQuick 2.12
+
+//import QtQuick 6.0
+
+import QtQuick
 
 Item {
     readonly property bool isConnected: _internal.isConnected
